@@ -9,7 +9,7 @@ import {
     DispatchHandler, 
     ReducerHandler,
     forwardAction,
-    forwardUpdate,
+    forwardObjectUpdate,
     forwardArrayUpdate,
     merge
 } from './common';    

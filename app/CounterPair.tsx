@@ -9,7 +9,7 @@ import {
     DispatchHandler, 
     ReducerHandler,
     forwardAction,
-    forwardUpdate,
+    forwardObjectUpdate,
     merge
 } from './common';    
 
@@ -23,10 +23,10 @@ export const init = () => ({
 
 export const update = (state, action: IAction) => {
     if (action.type === TOP) {
-        return forwardUpdate(state, TOP, action, updateCounter);
+        return forwardObjectUpdate(state, TOP, action, updateCounter);
     }
     if (action.type === BOTTOM) {
-        return forwardUpdate(state, BOTTOM, action, updateCounter);
+        return forwardObjectUpdate(state, BOTTOM, action, updateCounter);
     }
     return state;
 }

@@ -46,7 +46,7 @@ export const forwardAction = (dispatch: DispatchHandler, type: string, payload?:
     };
 }
 
-export const forwardUpdate = (state: any, path: any, action: IAction, updateFunc: ReducerHandler): any => {
+export const forwardObjectUpdate = (state: any, path: any, action: IAction, updateFunc: ReducerHandler): any => {
     if (!action.forwardedAction) {
         throw 'Only actions dispatched with forwardTo which have forwardedAction attribute can be forwarded';
     }
