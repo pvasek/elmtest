@@ -13,33 +13,54 @@ import {
     merge
 } from './common';    
 
-const TOP = 'TOP';
-const BOTTOM = 'BOTTOM';
+const LEFT = 'LEFT';
+const RIGHT = 'RIGHT';
+const RESET = 'RESET';
 
 export const init = () => ({
-    [TOP]: initCounter(),
-    [BOTTOM]: initCounter() 
+    [LEFT]: initCounter(),
+    [RIGHT]: initCounter() 
 });
 
-export const update = (state, action: IAction) => {
-    if (action.type === TOP) {
-        return forwardObjectUpdate(state, TOP, action, updateCounter);
+export const update = (state = init(), action: IAction) => {
+    if (action.forwardedAction) {
+        return forwardObjectUpdate(state, action, updateCounter);
     }
-    if (action.type === BOTTOM) {
-        return forwardObjectUpdate(state, BOTTOM, action, updateCounter);
+    if (action.type === RESET) {
+        return init();
     }
     return state;
 }
 
 export class View extends Component<IViewProperties, IViewState> {
+    
+    constructor() {
+        super();
+        this.reset = this.reset.bind(this);
+    }
+    
+    reset() {
+        this.props.dispatch({ type: RESET });
+    }
+    
     render() {
+        const boxStyle = {float:'left', minWidth: 160};
         return (
-            <div>
-                <h2>Counter1</h2>
-                <Counter model={this.props.model[TOP]} dispatch={forwardAction(this.props.dispatch, TOP)}/>
-                <h2>Counter2</h2>
-                <Counter model={this.props.model[BOTTOM]} dispatch={forwardAction(this.props.dispatch, BOTTOM)}/>
-            </div>
+            <table>
+                <caption>Counters</caption>
+                <tr>
+                    <td>
+                        <Counter model={this.props.model[LEFT]} dispatch={forwardAction(this.props.dispatch, LEFT)}/>
+                    </td>
+                    <td>
+                        <Counter model={this.props.model[RIGHT]} dispatch={forwardAction(this.props.dispatch, RIGHT)}/>
+                    </td>
+                    <td>
+                        <button onClick={this.reset}>reset</button>
+                    </td>
+                    
+                </tr>
+            </table>
         );
     }
 }

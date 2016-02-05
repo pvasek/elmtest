@@ -4,3 +4,4 @@
 /// <reference path="react/react-dom.d.ts" />
 /// <reference path="node/node.d.ts" />
 /// <reference path="tape/tape.d.ts" />
+/// <reference path="classnames/classnames.d.ts" />

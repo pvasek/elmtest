@@ -7,7 +7,7 @@ const DECREMENT = "DECREMENT";
 
 export const init = () => ({ value: 0 });
 
-export const update = (state: any, action: IAction): any => {
+export const update = (state: any = init(), action: IAction): any => {
     if (action.type === INCREMENT) {
         return merge(state, {value: state.value + 1 });
     }
@@ -34,9 +34,10 @@ export class View extends Component<IViewProperties,IViewState> {
     }
     
     render() {
+        const counterStyle = {display: 'inline-block', padding: '10 20'};
         return (
             <div>
-                <h1>App {this.props.model.value}</h1>
+                <span style={counterStyle}>Counter: {this.props.model.value}</span>                
                 <button onClick={this.increment}>+</button>
                 <button onClick={this.descrement}>-</button>
             </div>

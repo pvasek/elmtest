@@ -35,6 +35,13 @@ export const merge = (...sources: any[]): any => {
     return output;
 }
 
+export const action = (type: string, payload?: any): IAction => {
+    return {
+        type,
+        payload
+    };     
+};
+
 export const forwardAction = (dispatch: DispatchHandler, type: string, payload?: any): DispatchHandler => {
     return (action: IAction) => {
         console.log(`forwarding action to: ${type}, action:`, action);
@@ -44,15 +51,15 @@ export const forwardAction = (dispatch: DispatchHandler, type: string, payload?:
             forwardedAction: action
         });
     };
-}
+};
 
-export const forwardObjectUpdate = (state: any, path: any, action: IAction, updateFunc: ReducerHandler): any => {
+export const forwardObjectUpdate = (state: any, action: IAction, updateFunc: ReducerHandler): any => {
     if (!action.forwardedAction) {
         throw 'Only actions dispatched with forwardTo which have forwardedAction attribute can be forwarded';
     }
 
-    return merge(state, { [path]: updateFunc(state[path], action.forwardedAction) });
-}
+    return merge(state, { [action.type]: updateFunc(state[action.type], action.forwardedAction) });
+};
 
 export const forwardArrayUpdate = (state: any, index: number, action: IAction, updateFunc: ReducerHandler): any => {
     if (!action.forwardedAction) {
@@ -63,4 +70,4 @@ export const forwardArrayUpdate = (state: any, index: number, action: IAction, u
         ...state.slice(0, index), 
         updateFunc(state[index], action.forwardedAction), 
         ...state.slice(index + 1, state.length)];
-}
+};

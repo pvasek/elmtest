@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { View as Counter, update as updateCounter, init as initCounter } from './Counter'; 
+import { View as Counter, update as updateCounter, init as initCounter } from './Pager'; 
 
 import { 
     IAction, 
@@ -9,7 +9,6 @@ import {
     DispatchHandler, 
     ReducerHandler,
     forwardAction,
-    forwardObjectUpdate,
     forwardArrayUpdate,
     merge
 } from './common';    
