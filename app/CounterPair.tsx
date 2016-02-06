@@ -39,15 +39,23 @@ export class View extends Component<IViewProperties, IViewState> {
         this.reset = this.reset.bind(this);
     }
     
+    shouldComponentUpdate(nextProps: IViewProperties) {
+        return this.props.model !== nextProps.model;
+    }
+    
     reset() {
         this.props.dispatch({ type: RESET });
     }
     
     render() {
+        return this.renderCompact();
+    }
+    
+    renderNormal() {
         const boxStyle = {float:'left', minWidth: 160};
         return (
             <table>
-                <caption>Counters</caption>
+                <tbody>
                 <tr>
                     <td>
                         <Counter model={this.props.model[LEFT]} dispatch={forwardAction(this.props.dispatch, LEFT)}/>
@@ -57,10 +65,21 @@ export class View extends Component<IViewProperties, IViewState> {
                     </td>
                     <td>
                         <button onClick={this.reset}>reset</button>
-                    </td>
-                    
+                    </td>                    
                 </tr>
+                </tbody>
             </table>
+        );
+    }
+    
+    renderCompact() {
+        const boxStyle = {float:'left', minWidth: 180};
+        return (
+            <div style={boxStyle}>
+                <Counter model={this.props.model[LEFT]} dispatch={forwardAction(this.props.dispatch, LEFT)}/>
+                <Counter model={this.props.model[RIGHT]} dispatch={forwardAction(this.props.dispatch, RIGHT)}/>
+                <button onClick={this.reset}>reset</button>
+            </div>
         );
     }
 }

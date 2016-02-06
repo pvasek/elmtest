@@ -5,3 +5,5 @@
 /// <reference path="node/node.d.ts" />
 /// <reference path="tape/tape.d.ts" />
 /// <reference path="classnames/classnames.d.ts" />
+/// <reference path="inferno/inferno.d.ts" />
+/// <reference path="inferno/inferno-dom.d.ts" />

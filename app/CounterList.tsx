@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { View as Counter, update as updateCounter, init as initCounter } from './Pager'; 
+import { View as Counter, update as updateCounter, init as initCounter } from './CounterPair'; 
 
 import { 
     IAction, 
@@ -16,9 +16,15 @@ import {
 const COUNTER = 'COUNTER';
 const ADD_COUNTER = 'ADD_COUNTER';
 
-export const init = () => [];
+export const init = () => {
+    const result = [];
+    for (var i = 0; i < 1000; i++) {
+        result[i] = initCounter();
+    }
+    return result;
+};
 
-export const update = (state, action: IAction) => {
+export const update = (state = init(), action: IAction) => {
     if (action.type === COUNTER) {
         return forwardArrayUpdate(state, action.payload, action, updateCounter);
     }
@@ -35,13 +41,15 @@ export class View extends Component<IViewProperties, IViewState> {
         this.addCounter = this.addCounter.bind(this);    
     }
     
+    shouldComponentUpdate(nextProps: IViewProperties) {
+        return this.props.model !== nextProps.model;
+    }
+    
     addCounter() {
-        console.log('addCounter')
         this.props.dispatch({type: ADD_COUNTER});    
     }
     
     render() {
-        console.log("CounterList", this.props.model)
         const items = this.props.model.map((item, index) => 
             (<Counter key={index} model={item} dispatch={forwardAction(this.props.dispatch, COUNTER, index)}/>));
             

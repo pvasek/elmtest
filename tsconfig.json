@@ -5,12 +5,13 @@
         "target": "es5",
         "sourceMap": true,
         "outDir": "dist/ts",
-        "jsx": "react"
+        "jsx": "react"        
     },
     
     "files": [
         "typings/tsd.d.ts",
         "app/common.ts",
+        "app/component.ts",
         "app/index.tsx",
         "app/Counter.tsx",
         "app/CounterPair.tsx",
