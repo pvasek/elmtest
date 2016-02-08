@@ -5,21 +5,34 @@
         "target": "es5",
         "sourceMap": true,
         "outDir": "dist/ts",
-        "jsx": "react"        
+        "jsx": "react"
+        /*"reactNamespace": "Deku"*/  
     },
     
     "files": [
         "typings/tsd.d.ts",
         "app/common.ts",
         "app/component.ts",
-        "app/index.tsx",
         "app/Counter.tsx",
         "app/CounterPair.tsx",
         "app/CounterListGroup.tsx",
         "app/CounterListGroupContainer.tsx",
         "app/CounterList.tsx",
         "app/Pager.tsx",
-        "app/stateless/Table.tsx",
+        "app/index.tsx",
+        "app/actionCalledMiddleware.ts",
+        
+        /*
+        "app/deku/index.tsx",
+        "app/deku/Counter.tsx",
+        "app/deku/CounterPair.tsx",
+        */
+        
+        "app/reduxOnly/actionTypes.ts",
+        "app/reduxOnly/Counter.tsx",
+        "app/reduxOnly/index.tsx",
+        "app/reduxOnly/reducer.ts",
+
         "app/__tests__/common.ts"
     ]
 }

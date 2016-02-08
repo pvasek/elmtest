@@ -9,14 +9,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "deku": "^2.0.0-rc16",
     "inferno": "^0.5.22",
     "inferno-dom": "^0.5.22",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "react-redux": "^4.2.1",
-    "redux": "^3.2.1"
+    "react-redux": "^4.4.0",
+    "redux": "^3.3.1",
+    "redux-saga": "^0.7.0"
   },
   "devDependencies": {
+    "babel-core": "^6.5.1",
+    "babel-loader": "^6.2.2",
     "del": "^2.2.0",
     "gulp": "^3.9.0",
     "gulp-shell": "^0.5.2",
