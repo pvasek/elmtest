@@ -13,6 +13,11 @@
         "typings/tsd.d.ts",
         "app/common.ts",
         "app/component.ts",
+        "app/Counter.tsx",
+        "app/CounterList.tsx",
+        "app/Pager.tsx",
+        "app/index.tsx",
+        "app/actionCalledMiddleware.ts",
         
         /*
         "app/deku/index.tsx",

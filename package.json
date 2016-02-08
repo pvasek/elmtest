@@ -19,6 +19,8 @@
     "redux-saga": "^0.7.0"
   },
   "devDependencies": {
+    "babel-core": "^6.5.1",
+    "babel-loader": "^6.2.2",
     "del": "^2.2.0",
     "gulp": "^3.9.0",
     "gulp-shell": "^0.5.2",

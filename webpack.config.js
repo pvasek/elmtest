@@ -5,7 +5,7 @@ module.exports = {
   debug: true,
   devtool: 'source-map',
   entry: {
-      app: './app/reduxOnly/index.tsx'
+      app: './app/index.tsx'
   },
   output: {
     filename: './dist/[name].js'

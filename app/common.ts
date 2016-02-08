@@ -44,7 +44,7 @@ export const action = (type: string, payload?: any): IAction => {
 
 export const forwardAction = (dispatch: DispatchHandler, type: string, payload?: any): DispatchHandler => {
     return (action: IAction) => {
-        console.log(`forwarding action to: ${type}, action:`, action);
+        //console.log(`forwarding action to: ${type}, action:`, action);
         return dispatch({
             type: type,
             payload: payload,
