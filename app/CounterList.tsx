@@ -18,7 +18,7 @@ const ADD_COUNTER = 'ADD_COUNTER';
 
 export const init = () => {
     const result = [];
-    for (var i = 0; i < 1000; i++) {
+    for (var i = 0; i < 10000; i++) {
         result[i] = initCounter();
     }
     return result;

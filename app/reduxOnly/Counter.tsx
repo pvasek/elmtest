@@ -1,27 +1,16 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { IAction, IViewProperties, IViewState, merge } from './common';
+import { IAction, merge } from './../common';
+import { INCREMENT, DECREMENT, SET } from './actionTypes';
 
-const INCREMENT = 'INCREMENT';
-const DECREMENT = 'DECREMENT';
-const SET = 'SET';
-
-export const init = () => ({ value: 0 });
-
-export const update = (state: any = init(), action: IAction): any => {
-    switch (action.type) {
-        case INCREMENT:
-            return merge(state, {value: state.value + 1 });
-        case DECREMENT:
-            return merge(state, {value: state.value - 1 });
-        case SET: 
-            return merge(state, {value: parseInt(action.payload, 10)});
-    }
-    
-    return state;
+export interface ICounterViewProperties  {
+    model: any;
+    onPlus: () => void;    
+    onMinus: () => void;
+    onSet: (value: string) => void;
 }
 
-export class View extends Component<IViewProperties,IViewState> {
+export class Counter extends Component<ICounterViewProperties, {}> {
   
     constructor() {
         super();
@@ -30,20 +19,20 @@ export class View extends Component<IViewProperties,IViewState> {
         this.set = this.set.bind(this);
     }
     
-    shouldComponentUpdate(nextProps: IViewProperties) {
+    shouldComponentUpdate(nextProps: ICounterViewProperties) {
         return this.props.model !== nextProps.model;
     }
     
     increment() {                
-        this.props.dispatch({type: INCREMENT});
+        this.props.onPlus();
     }
     
     descrement() {
-        this.props.dispatch({type: DECREMENT});
+        this.props.onMinus();
     }
     
     set(e: any) {
-        this.props.dispatch({type: SET, payload: e.target.value});
+        this.props.onSet(e.target.value);
     }
     
     render() {
