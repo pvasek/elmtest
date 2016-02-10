@@ -18,16 +18,21 @@ export const scopedView = View => {
         
         private newContext: IComponentContext;
         
-        // shouldComponentUpdate(nextProps: IComponentViewProperties) {
-        //     return this.props.context.model !== nextProps.context.model;
-        // }
+        shouldComponentUpdate(nextProps: IComponentViewProperties) {
+            return this.getModel(this.props.context.model) !== this.getModel(nextProps.context.model);
+        }
+        
+        getModel(model) {
+            const key = this.props.componentKey;
+            return key !== undefined ? model.get(key) : model;
+        }
         
         getNewContext(): IComponentContext {
             const context = this.props.context;
             const componentKey = this.props.componentKey;
-            if (componentKey) {                    
+            if (componentKey !== undefined && componentKey !== null) {                    
                 this.newContext = {
-                    model: context.model[componentKey],
+                    model: context.model.get(componentKey),//context.model[componentKey],
                     dispatch: forwardAction(context.dispatch, componentKey),
                     globalDispatch: context.globalDispatch,
                     path: [...context.path, componentKey]

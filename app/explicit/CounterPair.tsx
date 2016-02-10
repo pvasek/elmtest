@@ -13,9 +13,9 @@ import {
 
 import {scopedView } from './scopedView'; 
 
-const LEFT = '@coutnerPair/LEFT';
-const RIGHT = '@coutnerPair/RIGHT';
-const RESET = '@coutnerPair/RESET';
+const LEFT = 'LEFT';
+const RIGHT = 'RIGHT';
+const RESET = 'RESET';
 
 const init = () => (Immutable.Map({
     [LEFT]: initCounter(),
@@ -25,9 +25,9 @@ const init = () => (Immutable.Map({
 const update = (state: Immutable.Map<any, any> = init(), action: IAction) => {
     switch (action.type) {
         case LEFT: 
-            return merge(state, { [LEFT]: updateCounter(state[LEFT], action.forwardedAction)});
+            return state.set(LEFT, updateCounter(state.get(LEFT), action.forwardedAction));
         case RIGHT: 
-            return merge(state, { [RIGHT]: updateCounter(state[RIGHT], action.forwardedAction)});
+            return state.set(RIGHT, updateCounter(state.get(RIGHT), action.forwardedAction));
         case RESET:
             return init();
     }
@@ -46,7 +46,6 @@ class View extends Component<IComponentViewProperties, {}> {
     }
     
     render() {
-        console.log('counter pair render');
         const boxStyle = {float:'left', minWidth: 180};
         return (
             <div style={boxStyle}>

@@ -30,6 +30,7 @@
         /* explicit*/
         "app/explicit/Counter.tsx",
         "app/explicit/CounterPair.tsx",
+        "app/explicit/CounterList.tsx",
         "app/explicit/scopedView.tsx",
         "app/explicit/index.tsx",
         

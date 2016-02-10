@@ -5,7 +5,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { IAction, IComponentContext } from './../common';
 import { actionWorkflowMiddleware } from './../actionCalledMiddleware';
 import { actionLogMiddleware } from './../actionLogMiddleware';
-import { View, update, init } from './CounterPair'; 
+import { View, update, init } from './CounterList'; 
 
 const updateHandler = (dispatch, actionInfo, getState) => {
     //console.log('SET called', actionInfo);
@@ -22,8 +22,10 @@ const workflows = {
 };
 
 const middlewares = applyMiddleware(    
-    actionWorkflowMiddleware(workflows),
-    actionLogMiddleware);
+    actionWorkflowMiddleware(workflows)
+    //,actionLogMiddleware(state => state.toJS())
+);
+    
 const createStoreWithMiddleware = compose(middlewares)(createStore);
 const store = createStoreWithMiddleware(update, init());
 
