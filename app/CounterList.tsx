@@ -26,7 +26,7 @@ export const init = () => {
 
 export const update = (state = init(), action: IAction) => {
     if (action.type === COUNTER) {
-        return forwardArrayUpdate(state, action.payload, action, updateCounter);
+        return forwardArrayUpdate(state, action.forwardedAction.type, action.forwardedAction, updateCounter);
     }
     if (action.type === ADD_COUNTER) {
         return [...state, initCounter()];   

@@ -12,6 +12,18 @@ export interface DispatchHandler {
     (action: IAction): void;
 }
 
+export interface IComponentContext {
+    model: any,
+    dispatch: DispatchHandler,
+    globalDispatch: DispatchHandler,
+    path: Array<any>
+}
+
+export interface IComponentViewProperties {
+    componentKey: any,
+    context: IComponentContext    
+}
+
 export interface IViewProperties {
     model: any,
     dispatch: DispatchHandler
@@ -42,14 +54,22 @@ export const action = (type: string, payload?: any): IAction => {
     };     
 };
 
-export const forwardAction = (dispatch: DispatchHandler, type: string, payload?: any): DispatchHandler => {
+const buildActionTree = (types: Array<any>, finalAction: IAction): IAction => {
+    {
+        const result = action(types[0]);
+        
+        result.forwardedAction = types.length > 1 ? 
+            buildActionTree(types.slice(1), finalAction)
+            : finalAction;
+            
+        return result;
+    }
+};
+
+export const forwardAction = (dispatch: DispatchHandler, ...types: Array<any>): DispatchHandler => {
     return (action: IAction) => {
-        //console.log(`forwarding action to: ${type}, action:`, action);
-        return dispatch({
-            type: type,
-            payload: payload,
-            forwardedAction: action
-        });
+        const result = buildActionTree(types, action);
+        return dispatch(result);
     };
 };
 
@@ -61,13 +81,15 @@ export const forwardObjectUpdate = (state: any, action: IAction, updateFunc: Red
     return merge(state, { [action.type]: updateFunc(state[action.type], action.forwardedAction) });
 };
 
-export const forwardArrayUpdate = (state: any, index: number, action: IAction, updateFunc: ReducerHandler): any => {
+export const forwardArrayUpdate = (state: any, index: number|string, action: IAction, updateFunc: ReducerHandler): any => {
     if (!action.forwardedAction) {
         throw 'Only actions dispatched with forwardTo which have forwardedAction attribute can be forwarded';
     }
 
+    const intIndex = typeof index === 'string' ? parseInt(index, 10) : index;
+        
     return [
         ...state.slice(0, index), 
         updateFunc(state[index], action.forwardedAction), 
-        ...state.slice(index + 1, state.length)];
+        ...state.slice(intIndex + 1, state.length)];
 };

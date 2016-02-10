@@ -3,14 +3,18 @@
         "module": "commonjs",
         "allowJs": true,
         "target": "es5",
-        "sourceMap": true,
         "outDir": "dist/ts",
-        "jsx": "react"
-        /*"reactNamespace": "Deku"*/  
+        "jsx": "react",
+        /*"reactNamespace": "Deku",*/ 
+
+        "sourceMap": true,
+        "inlineSourceMap": false
+        /*"sourceRoot": "C:/develop/projects/elmtest"*/
     },
     
     "files": [
         "typings/tsd.d.ts",
+        "./node_modules/immutable/dist/immutable.d.ts",
         "app/common.ts",
         "app/component.ts",
         "app/Counter.tsx",
@@ -21,6 +25,13 @@
         "app/Pager.tsx",
         "app/index.tsx",
         "app/actionCalledMiddleware.ts",
+        "app/actionLogMiddleware.ts",
+        
+        /* explicit*/
+        "app/explicit/Counter.tsx",
+        "app/explicit/CounterPair.tsx",
+        "app/explicit/scopedView.tsx",
+        "app/explicit/index.tsx",
         
         /*
         "app/deku/index.tsx",
@@ -28,6 +39,7 @@
         "app/deku/CounterPair.tsx",
         */
         
+        /* reducOnly */
         "app/reduxOnly/actionTypes.ts",
         "app/reduxOnly/Counter.tsx",
         "app/reduxOnly/index.tsx",

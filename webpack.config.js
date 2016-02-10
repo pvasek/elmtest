@@ -5,7 +5,7 @@ module.exports = {
   debug: true,
   devtool: 'source-map',
   entry: {
-      app: './app/index.tsx'
+      app: './app/explicit/index.tsx'
   },
   output: {
     filename: './dist/[name].js'

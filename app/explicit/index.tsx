@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Component } from 'react';
 import * as ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
-import { IAction } from './common';
-import { actionWorkflowMiddleware } from './actionCalledMiddleware';
-import { actionLogMiddleware } from './actionLogMiddleware';
-import { View, update, init } from './CounterList'; 
+import { IAction, IComponentContext } from './../common';
+import { actionWorkflowMiddleware } from './../actionCalledMiddleware';
+import { actionLogMiddleware } from './../actionLogMiddleware';
+import { View, update, init } from './CounterPair'; 
 
 const updateHandler = (dispatch, actionInfo, getState) => {
     //console.log('SET called', actionInfo);
@@ -30,7 +30,15 @@ const store = createStoreWithMiddleware(update, init());
 const appElement = document.getElementById('app');
 
 const render = () => {
-    ReactDOM.render(<View model={store.getState()} dispatch={store.dispatch}/>, appElement);
+    
+    const context: IComponentContext = {
+        model: store.getState(), 
+        dispatch: store.dispatch,
+        globalDispatch: store.dispatch,
+        path: []
+    };
+    console.log('RERENDER');
+    ReactDOM.render(<View componentKey={null} context={context}/>, appElement);
 }
 
 render();
