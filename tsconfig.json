@@ -32,6 +32,7 @@
         "app/explicit/CounterPair.tsx",
         "app/explicit/CounterList.tsx",
         "app/explicit/scopedView.tsx",
+        "app/explicit/ForwardScope.tsx",
         "app/explicit/index.tsx",
         
         /*

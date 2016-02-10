@@ -10,14 +10,16 @@ import {
     forwardAction,
     forwardArrayUpdate,
     merge
-} from './../common';    
+} from './../common';
+
+import { ForwardScope } from './ForwardScope';    
 
 const COUNTER = 'COUNTER';
 const ADD_COUNTER = 'ADD_COUNTER';
 
 export const init = () => {
     const result = [];
-    for (var i = 0; i < 10000; i++) {
+    for (var i = 0; i < 100; i++) {
         result[i] = initCounter();
     }
     return Immutable.List(result);
@@ -27,9 +29,9 @@ export const update = (state: Immutable.List<any> = init(), action: IAction) => 
     if (action.type === ADD_COUNTER) {
         return state.push(initCounter());
     } 
-    if (action.forwardedAction) {
-        const index = action.type as number;
-        return state.set(index, updateCounter(state.get(index), action.forwardedAction));
+    if (action.type === COUNTER) {
+        const index = action.forwardedAction.type as number;
+        return state.set(index, updateCounter(state.get(index), action.forwardedAction.forwardedAction));
     }
     return state;
 }
@@ -47,7 +49,11 @@ export class View extends Component<IComponentViewProperties, {}> {
     
     render() {
         const items = this.props.context.model.map((item, index) => 
-            (<Counter key={index} componentKey={index} context={this.props.context}/>));
+            (
+                <ForwardScope key={index} componentKey={COUNTER} context={this.props.context}>
+                    <Counter componentKey={index} />
+                </ForwardScope>
+            ));
             
         return (
             <div>

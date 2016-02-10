@@ -20,8 +20,8 @@ export interface IComponentContext {
 }
 
 export interface IComponentViewProperties {
-    componentKey: any,
-    context: IComponentContext    
+    componentKey?: any,
+    context?: IComponentContext    
 }
 
 export interface IViewProperties {

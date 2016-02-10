@@ -50,7 +50,7 @@ export const scopedView = View => {
         
         render() {
             const ctx = this.getNewContext();
-            return createElement(View, { context: ctx, key: this.props.componentKey });
+            return createElement(View, { context: ctx, key: this.props.componentKey, children: (this.props as any).children });
         }    
     }    
     return ComponentScope;
