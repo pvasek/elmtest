@@ -52,7 +52,7 @@ export class View extends Component<IComponentViewProperties, {}> {
     render() {
         const items = this.props.context.model.get(COUNTER).map((item, index) => 
             (
-                <Counter key={index} componentKey={[COUNTER, index]} context={this.props.context}/>
+                <Counter key={index} path={[COUNTER, index]} context={this.props.context}/>
             ));
             
         return (

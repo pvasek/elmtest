@@ -48,8 +48,8 @@ class View extends Component<IComponentViewProperties, {}> {
         const boxStyle = {float:'left', minWidth: 180};
         return (
             <div style={boxStyle}>
-                <Counter componentKey={LEFT} context={this.props.context}/>
-                <Counter componentKey={RIGHT} context={this.props.context}/>
+                <Counter path={LEFT} context={this.props.context}/>
+                <Counter path={RIGHT} context={this.props.context}/>
                 <button onClick={this.reset}>reset</button>
             </div>
         );

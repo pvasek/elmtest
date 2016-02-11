@@ -40,7 +40,7 @@ const render = () => {
         path: []
     };
     console.log('RERENDER');
-    ReactDOM.render(<View componentKey={null} context={context}/>, appElement);
+    ReactDOM.render(<View path={null} context={context}/>, appElement);
 }
 
 render();

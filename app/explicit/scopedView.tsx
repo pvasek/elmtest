@@ -23,7 +23,7 @@ export const scopedView = View => {
         }
         
         getModel(model) {
-            const key = this.props.componentKey;
+            const key = this.props.path;
             if (key instanceof Array) {
                 return key.reduce((acc, item) => {
                     return acc.get(item);
@@ -35,14 +35,14 @@ export const scopedView = View => {
         
         getNewContext(): IComponentContext {
             const context = this.props.context;
-            const componentKey = this.props.componentKey;
-            if (componentKey !== undefined && componentKey !== null) {
-                const keyPath = componentKey instanceof Array ? componentKey : [componentKey];                    
+            const path = this.props.path;
+            if (path !== undefined && path !== null) {
+                const keyPath = path instanceof Array ? path : [path];                    
                 this.newContext = {
                     model: this.getModel(context.model),
                     dispatch: forwardActionPath(context.dispatch, keyPath),
                     globalDispatch: context.globalDispatch,
-                    path: [...context.path, componentKey]
+                    path: [...context.path, path]
                 };
             } else {
                 this.newContext = {
@@ -57,7 +57,7 @@ export const scopedView = View => {
         
         render() {
             const ctx = this.getNewContext();
-            return createElement(View, { context: ctx, key: this.props.componentKey, children: (this.props as any).children });
+            return createElement(View, { context: ctx, key: this.props.path, children: (this.props as any).children });
         }    
     }    
     return ComponentScope;

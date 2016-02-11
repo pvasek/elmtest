@@ -20,7 +20,7 @@ export interface IComponentContext {
 }
 
 export interface IComponentViewProperties {
-    componentKey?: any | Array<any>,
+    path?: any | Array<any>,
     context?: IComponentContext    
 }
 
