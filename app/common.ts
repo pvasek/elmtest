@@ -20,7 +20,7 @@ export interface IComponentContext {
 }
 
 export interface IComponentViewProperties {
-    componentKey?: any,
+    componentKey?: any | Array<any>,
     context?: IComponentContext    
 }
 
@@ -64,6 +64,13 @@ const buildActionTree = (types: Array<any>, finalAction: IAction): IAction => {
             
         return result;
     }
+};
+
+export const forwardActionPath = (dispatch: DispatchHandler, types: Array<any>): DispatchHandler => {
+    return (action: IAction) => {
+        const result = buildActionTree(types, action);
+        return dispatch(result);
+    };
 };
 
 export const forwardAction = (dispatch: DispatchHandler, ...types: Array<any>): DispatchHandler => {

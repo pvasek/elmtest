@@ -6,7 +6,6 @@ import { View as Counter, update as updateCounter, init as initCounter } from '.
 import { 
     IAction, 
     IComponentViewProperties, 
-    forwardAction,
     forwardObjectUpdate,    
     merge
 } from './../common';   

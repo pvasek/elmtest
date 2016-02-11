@@ -3,7 +3,7 @@ import * as React from 'react';
 import { 
     IComponentViewProperties, 
     IComponentContext,
-    forwardAction 
+    forwardActionPath 
 } from './../common';
 
 export const scopedUpdate = () => {
@@ -24,16 +24,23 @@ export const scopedView = View => {
         
         getModel(model) {
             const key = this.props.componentKey;
-            return key !== undefined ? model.get(key) : model;
+            if (key instanceof Array) {
+                return key.reduce((acc, item) => {
+                    return acc.get(item);
+                }, model);
+            } else {
+                return key !== undefined ? model.get(key) : model;
+            }
         }
         
         getNewContext(): IComponentContext {
             const context = this.props.context;
             const componentKey = this.props.componentKey;
-            if (componentKey !== undefined && componentKey !== null) {                    
+            if (componentKey !== undefined && componentKey !== null) {
+                const keyPath = componentKey instanceof Array ? componentKey : [componentKey];                    
                 this.newContext = {
-                    model: context.model.get(componentKey),//context.model[componentKey],
-                    dispatch: forwardAction(context.dispatch, componentKey),
+                    model: this.getModel(context.model),
+                    dispatch: forwardActionPath(context.dispatch, keyPath),
                     globalDispatch: context.globalDispatch,
                     path: [...context.path, componentKey]
                 };

@@ -7,12 +7,10 @@ import { View as Counter, update as updateCounter, init as initCounter } from '.
 import { 
     IAction, 
     IComponentViewProperties, 
-    forwardAction,
     forwardArrayUpdate,
     merge
 } from './../common';
 
-import { ForwardScope } from './ForwardScope';    
 
 const COUNTER = 'COUNTER';
 const ADD_COUNTER = 'ADD_COUNTER';
@@ -22,16 +20,20 @@ export const init = () => {
     for (var i = 0; i < 100; i++) {
         result[i] = initCounter();
     }
-    return Immutable.List(result);
+    return Immutable.Map({
+        [COUNTER]: Immutable.List(result)
+    });
 };
 
-export const update = (state: Immutable.List<any> = init(), action: IAction) => {
+export const update = (state: Immutable.Map<any, any> = init(), action: IAction) => {
     if (action.type === ADD_COUNTER) {
-        return state.push(initCounter());
+        return state.set(COUNTER, state.get(COUNTER).push(initCounter()));
     } 
     if (action.type === COUNTER) {
         const index = action.forwardedAction.type as number;
-        return state.set(index, updateCounter(state.get(index), action.forwardedAction.forwardedAction));
+        const counters = state.get(COUNTER);
+        const counter = counters.get(index);
+        return state.set(COUNTER, counters.set(index, updateCounter(counter, action.forwardedAction.forwardedAction))); 
     }
     return state;
 }
@@ -48,11 +50,9 @@ export class View extends Component<IComponentViewProperties, {}> {
     }
     
     render() {
-        const items = this.props.context.model.map((item, index) => 
+        const items = this.props.context.model.get(COUNTER).map((item, index) => 
             (
-                <ForwardScope key={index} componentKey={COUNTER} context={this.props.context}>
-                    <Counter componentKey={index} />
-                </ForwardScope>
+                <Counter key={index} componentKey={[COUNTER, index]} context={this.props.context}/>
             ));
             
         return (
