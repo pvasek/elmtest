@@ -1,11 +1,12 @@
 import * as React from 'react';
+import * as flyd from 'flyd';
 import { Component } from 'react';
 import * as ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { IAction } from './../common';
 import { actionWorkflowMiddleware } from './../actionCalledMiddleware';
 import { actionLogMiddleware } from './../actionLogMiddleware';
-import { View, update, init, effects } from './Counter'; 
+import { View, update, init } from './CounterList'; 
 
 const updateHandler = (dispatch, actionInfo, getState) => {
     //console.log('SET called', actionInfo);
@@ -30,19 +31,10 @@ const store = createStoreWithMiddleware(update, init());
 
 const appElement = document.getElementById('app');
 
-const render = (view, el) => {
-    ReactDOM.render(React.createElement(view, { model: store.getState(), dispatch: store.dispatch}), el);
-}
+const viewFunc = (dispatch: flyd.Stream) => state =>  React.createElement(View, { model: state, dispatch: dispatch}) 
 
-const services = {
-    html: func => {
-        render(func, appElement);
-    }
-}
-
-
-const applyEffects = () => {
-        
-};
-
-store.subscribe(applyEffects);
+const action$ = flyd.stream();
+const state$ = flyd.scan(update, init(), action$);
+const html$ = flyd.map(viewFunc(action$), state$)
+const render = html => ReactDOM.render(html, appElement)
+flyd.on(render, html$)
