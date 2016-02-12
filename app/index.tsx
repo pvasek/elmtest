@@ -30,7 +30,7 @@ const store = createStoreWithMiddleware(update, init());
 const appElement = document.getElementById('app');
 
 const render = () => {
-    ReactDOM.render(<View model={store.getState()} dispatch={store.dispatch}/>, appElement);
+    ReactDOM.render(<View model={store.getState()} dispatch={store.dispatch} globalDispatch={store.dispatch} path={[]}/>, appElement);
 }
 
 render();

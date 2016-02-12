@@ -51,7 +51,13 @@ export class View extends Component<IViewProperties, IViewState> {
     
     render() {
         const items = this.props.model.map((item, index) => 
-            (<Counter key={index} model={item} dispatch={forwardAction(this.props.dispatch, COUNTER, index)}/>));
+            (
+                <Counter key={index} 
+                    model={item} 
+                    dispatch={forwardAction(this.props.dispatch, COUNTER, index)}
+                    globalDispatch={this.props.globalDispatch}
+                    path={[...this.props.path, index]}/>)
+            );
             
         return (
             <div>

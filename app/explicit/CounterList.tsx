@@ -17,7 +17,7 @@ const ADD_COUNTER = 'ADD_COUNTER';
 
 export const init = () => {
     const result = [];
-    for (var i = 0; i < 100; i++) {
+    for (var i = 0; i < 5000; i++) {
         result[i] = initCounter();
     }
     return Immutable.Map({

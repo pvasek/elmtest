@@ -34,6 +34,12 @@
         "app/explicit/scopedView.tsx",
         "app/explicit/index.tsx",
         
+        /* elmish */
+        "app/elmish/Counter.tsx",
+        "app/elmish/CounterPair.tsx",
+        "app/elmish/CounterList.tsx",
+        "app/elmish/index.tsx",
+        
         /*
         "app/deku/index.tsx",
         "app/deku/Counter.tsx",

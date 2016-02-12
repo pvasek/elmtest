@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 export interface IAction {
     type: string|number,
     payload?: any,
@@ -26,7 +28,9 @@ export interface IComponentViewProperties {
 
 export interface IViewProperties {
     model: any,
-    dispatch: DispatchHandler
+    dispatch: DispatchHandler,
+    path?: Array<any>,
+    globalDispatch?: DispatchHandler
 }
 
 export interface IViewState {}
@@ -100,3 +104,19 @@ export const forwardArrayUpdate = (state: any, index: number|string, action: IAc
         updateFunc(state[index], action.forwardedAction), 
         ...state.slice(intIndex + 1, state.length)];
 };
+
+export const purify = Component => {
+    
+    class PureComponent extends React.Component<{}, {}> {
+        
+        shouldComponentUpdate(nextProps) {
+            return (this.props as any).model !== nextProps.model;    
+        }
+        
+        render() {
+            return Component(this.props);
+        }
+    }
+    return (props) => React.createElement(PureComponent, props);
+
+}

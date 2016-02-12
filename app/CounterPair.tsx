@@ -58,10 +58,18 @@ export class View extends Component<IViewProperties, IViewState> {
                 <tbody>
                 <tr>
                     <td>
-                        <Counter model={this.props.model[LEFT]} dispatch={forwardAction(this.props.dispatch, LEFT)}/>
+                        <Counter 
+                            path={[...this.props.path, LEFT]} 
+                            globalDispatch={this.props.globalDispatch} 
+                            model={this.props.model[LEFT]} 
+                            dispatch={forwardAction(this.props.dispatch, LEFT)}/>
                     </td>
                     <td>
-                        <Counter model={this.props.model[RIGHT]} dispatch={forwardAction(this.props.dispatch, RIGHT)}/>
+                        <Counter
+                            path={[...this.props.path, RIGHT]} 
+                            globalDispatch={this.props.globalDispatch}                          
+                            model={this.props.model[RIGHT]} 
+                            dispatch={forwardAction(this.props.dispatch, RIGHT)}/>
                     </td>
                     <td>
                         <button onClick={this.reset}>reset</button>

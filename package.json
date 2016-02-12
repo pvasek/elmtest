@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "deku": "^2.0.0-rc16",
+    "flyd": "^0.2.1",
     "immutable": "^3.7.6",
     "inferno": "^0.5.22",
     "inferno-dom": "^0.5.22",
