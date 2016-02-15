@@ -28,9 +28,7 @@ export interface IComponentViewProperties {
 
 export interface IViewProperties {
     model: any,
-    dispatch: DispatchHandler,
-    path?: Array<any>,
-    globalDispatch?: DispatchHandler
+    dispatch: DispatchHandler
 }
 
 export interface IViewState {}

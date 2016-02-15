@@ -9,3 +9,4 @@
 /// <reference path="inferno/inferno.d.ts" />
 /// <reference path="inferno/inferno-dom.d.ts" />
 /// <reference path="flyd/flyd.d.ts" />
+/// <reference path="kefir/kefir.d.ts" />

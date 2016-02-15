@@ -55,8 +55,7 @@ export class View extends Component<IViewProperties, IViewState> {
                 <Counter key={index} 
                     model={item} 
                     dispatch={forwardAction(this.props.dispatch, COUNTER, index)}
-                    globalDispatch={this.props.globalDispatch}
-                    path={[...this.props.path, index]}/>)
+                />)
             );
             
         return (

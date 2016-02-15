@@ -59,15 +59,11 @@ export class View extends Component<IViewProperties, IViewState> {
                 <tr>
                     <td>
                         <Counter 
-                            path={[...this.props.path, LEFT]} 
-                            globalDispatch={this.props.globalDispatch} 
                             model={this.props.model[LEFT]} 
                             dispatch={forwardAction(this.props.dispatch, LEFT)}/>
                     </td>
                     <td>
                         <Counter
-                            path={[...this.props.path, RIGHT]} 
-                            globalDispatch={this.props.globalDispatch}                          
                             model={this.props.model[RIGHT]} 
                             dispatch={forwardAction(this.props.dispatch, RIGHT)}/>
                     </td>
